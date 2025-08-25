@@ -6,12 +6,18 @@
 
     <groupId>io.github.aaru637</groupId>
     <artifactId>common-utils</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
 
     <name>Common Utils</name>
     <description>A utility library for common operations</description>
     <url>https://github.com/aaru637/common-utils</url>
+
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <licenses>
         <license>

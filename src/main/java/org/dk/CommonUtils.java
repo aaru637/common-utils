@@ -46,7 +46,7 @@ public class CommonUtils {
     }
 
     private static final String FULL_STOP = "\\.";
-    private static final String EMPTY_STRING = "";
+    public static final String EMPTY_STRING = "";
     private static final int DEFAULT_RANDOM_STRING_LENGTH = 10;
     private static final int DEFAULT_RANDOM_INT_MIN = 0;
     private static final int DEFAULT_RANDOM_INT_MAX = 10000;
