@@ -270,4 +270,36 @@ public class JsonUtilsTest {
         assertNotNull(json);
         assertTrue(json.contains("\n"));
     }
+
+    @Test
+    void testConvertPersonToSameClass() {
+        Person result = JsonUtils.convertObjectToClass(person, Person.class);
+
+        assertNotNull(result);
+        assertEquals(person.getName(), result.getName());
+        assertEquals(person.getAge(), result.getAge());
+        assertEquals(person.getBirthDate().getTime(), result.getBirthDate().getTime());
+    }
+
+    @Test
+    void testConvertPersonToDifferentClass() {
+        Person result = JsonUtils.convertObjectToClass(person, Person.class);
+
+        assertNotNull(result);
+        assertEquals("Alice", result.getName());
+        assertEquals(30, result.getAge());
+    }
+
+    @Test
+    void testConvertNullObject() {
+        Person result = JsonUtils.convertObjectToClass(null, Person.class);
+        assertNull(result);
+    }
+
+    @Test
+    void testInvalidConversionThrowsException() {
+        assertThrows(Exception.class, () -> {
+            JsonUtils.convertObjectToClass("invalid_json_object", Person.class);
+        });
+    }
 }

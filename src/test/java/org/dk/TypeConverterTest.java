@@ -409,4 +409,78 @@ class TypeConverterTest {
         assertFalse(TypeConverter.stringToBooleanIgnoreCase("NO"));
         assertFalse(TypeConverter.stringToBooleanIgnoreCase(null));
     }
+
+    @Test
+    void testStringToInt() {
+        assertEquals(123, TypeConverter.stringToInt("123"));
+        assertEquals(0, TypeConverter.stringToInt("abc"));
+        assertEquals(0, TypeConverter.stringToInt(null));
+        assertEquals(0, TypeConverter.stringToInt(""));
+        assertEquals(Integer.MAX_VALUE, TypeConverter.stringToInt(String.valueOf(Integer.MAX_VALUE)));
+        assertEquals(Integer.MIN_VALUE, TypeConverter.stringToInt(String.valueOf(Integer.MIN_VALUE)));
+    }
+
+    @Test
+    void testStringToByte() {
+        assertEquals((byte) 10, TypeConverter.stringToByte("10"));
+        assertEquals(0, TypeConverter.stringToByte("999"));
+        assertEquals(0, TypeConverter.stringToByte(null));
+        assertEquals(0, TypeConverter.stringToByte("xyz"));
+        assertEquals(Byte.MAX_VALUE, TypeConverter.stringToByte(String.valueOf(Byte.MAX_VALUE)));
+        assertEquals(Byte.MIN_VALUE, TypeConverter.stringToByte(String.valueOf(Byte.MIN_VALUE)));
+    }
+
+    @Test
+    void testStringToShort() {
+        assertEquals((short) 300, TypeConverter.stringToShort("300"));
+        assertEquals(0, TypeConverter.stringToShort("abc"));
+        assertEquals(0, TypeConverter.stringToShort(null));
+        assertEquals(0, TypeConverter.stringToShort("100000"));
+        assertEquals(Short.MAX_VALUE, TypeConverter.stringToShort(String.valueOf(Short.MAX_VALUE)));
+        assertEquals(Short.MIN_VALUE, TypeConverter.stringToShort(String.valueOf(Short.MIN_VALUE)));
+    }
+
+    @Test
+    void testStringToLong() {
+        assertEquals(123456789L, TypeConverter.stringToLong("123456789"));
+        assertEquals(0L, TypeConverter.stringToLong("notANumber"));
+        assertEquals(0L, TypeConverter.stringToLong(null));
+        assertEquals(0L, TypeConverter.stringToLong(""));
+        assertEquals(Long.MAX_VALUE, TypeConverter.stringToLong(String.valueOf(Long.MAX_VALUE)));
+        assertEquals(Long.MIN_VALUE, TypeConverter.stringToLong(String.valueOf(Long.MIN_VALUE)));
+    }
+
+    @Test
+    void testStringToFloat() {
+        assertEquals(12.5f, TypeConverter.stringToFloat("12.5"), 0.0001f);
+        assertEquals(0.0f, TypeConverter.stringToFloat("blah"), 0.0001f);
+        assertEquals(0.0f, TypeConverter.stringToFloat(null), 0.0001f);
+        assertEquals(0.0f, TypeConverter.stringToFloat(""));
+        assertEquals(Float.MAX_VALUE, TypeConverter.stringToFloat(String.valueOf(Float.MAX_VALUE)), 0.0001f);
+        assertEquals(Float.MIN_VALUE, TypeConverter.stringToFloat(String.valueOf(Float.MIN_VALUE)), 0.0001f);
+    }
+
+    @Test
+    void testStringToDouble() {
+        assertEquals(45.67, TypeConverter.stringToDouble("45.67"), 0.0001);
+        assertEquals(0.0, TypeConverter.stringToDouble("oops"), 0.0001);
+        assertEquals(0.0, TypeConverter.stringToDouble(null), 0.0001);
+        assertEquals(0.0, TypeConverter.stringToDouble(""));
+        assertEquals(Double.MAX_VALUE, TypeConverter.stringToDouble(String.valueOf(Double.MAX_VALUE)), 0.0001);
+        assertEquals(Double.MIN_VALUE, TypeConverter.stringToDouble(String.valueOf(Double.MIN_VALUE)), 0.0001);
+    }
+
+    @Test
+    void testStringToChar() {
+        assertEquals('a', TypeConverter.stringToChar("abc"));
+        assertEquals('\u0000', TypeConverter.stringToChar(""));
+        assertEquals('\u0000', TypeConverter.stringToChar(null));
+    }
+
+    @Test
+    void testStringToCharacter() {
+        assertEquals('z', TypeConverter.stringToCharacter("zebra"));
+        assertNull(TypeConverter.stringToCharacter(""));
+        assertNull(TypeConverter.stringToCharacter(null));
+    }
 }
