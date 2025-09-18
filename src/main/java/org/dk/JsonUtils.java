@@ -538,4 +538,22 @@ public class JsonUtils {
         }
         return gson.setDateFormat(dateFormat).setPrettyPrinting().create().toJson(list);
     }
+
+    /**
+     * Converts a given object into an instance of the specified class using Gson serialization and deserialization.
+     * <p>
+     * This method first serializes the input object to a JSON string, then deserializes
+     * it back into the target class type. Useful for converting between compatible DTOs,
+     * request/response models, or when type casting via JSON mapping is needed.
+     *
+     * @param data  the source object to convert (can be any serializable object)
+     * @param clazz the target class to map the object to
+     * @param <T>   the type of the target class
+     * @return an instance of the specified class populated with the data from the input object,
+     * or {@code null} if the input object is {@code null}
+     * @throws com.google.gson.JsonSyntaxException if the JSON is not a valid representation for the class
+     */
+    public static <T> T convertObjectToClass(Object data, Class<T> clazz) {
+        return fromJson(toJson(data), clazz);
+    }
 }

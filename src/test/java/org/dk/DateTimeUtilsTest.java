@@ -273,5 +273,45 @@ class DateTimeUtilsTest {
         DateTimeUtils utils = new DateTimeUtils(LocalDateTime.of(2025, 1, 1, 0, 0));
         assertNotNull(utils.getMonthsInCurrentYear());
     }
+
+    @Test
+    void isValidDateWithValidDateAndFormatReturnsTrue() {
+        assertTrue(DateTimeUtils.isValidDate("2025-08-23T15:30:00.000+0000", "yyyy-MM-dd'T'HH:mm:ss.SSSZ"));
+    }
+
+    @Test
+    void isValidDateWithInvalidDateAndValidFormatReturnsFalse() {
+        assertFalse(DateTimeUtils.isValidDate("2025-02-30T15:30:00.000+0000", "yyyy-MM-dd'T'HH:mm:ss.SSSZ"));
+    }
+
+    @Test
+    void isValidDateWithValidDateAndInvalidFormatReturnsFalse() {
+        assertFalse(DateTimeUtils.isValidDate("2025-08-23T15:30:00.000+0000", "invalid-format"));
+    }
+
+    @Test
+    void isValidDateWithNullDateStringReturnsFalse() {
+        assertFalse(DateTimeUtils.isValidDate(null, "yyyy-MM-dd'T'HH:mm:ss.SSSZ"));
+    }
+
+    @Test
+    void isValidDateWithNullFormatReturnsFalse() {
+        assertFalse(DateTimeUtils.isValidDate("2025-08-23T15:30:00.000+0000", null));
+    }
+
+    @Test
+    void isValidDateWithDefaultFormatAndValidDateReturnsTrue() {
+        assertTrue(DateTimeUtils.isValidDate("2025-08-23T15:30:00.000+0000"));
+    }
+
+    @Test
+    void isValidDateWithDefaultFormatAndInvalidDateReturnsFalse() {
+        assertFalse(DateTimeUtils.isValidDate("2025-02-30T15:30:00.000+0000"));
+    }
+
+    @Test
+    void isValidDateWithDefaultFormatAndNullDateReturnsFalse() {
+        assertFalse(DateTimeUtils.isValidDate(null));
+    }
 }
 

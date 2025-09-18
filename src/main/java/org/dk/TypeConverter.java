@@ -957,4 +957,126 @@ public class TypeConverter {
         return CommonUtils.containsIgnoreCase(TRUE_STRINGS, str);
     }
 
+    /**
+     * Converts a String to a primitive int. Returns 0 if the string is not a valid integer.
+     *
+     * @param str the String to convert
+     * @return the int value or 0 if conversion fails
+     */
+    public static int stringToInt(String str) {
+        if (CommonUtils.isNull(str)) {
+            return 0;
+        }
+        try {
+            return Integer.parseInt(str);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    /**
+     * Converts a String to a primitive byte. Returns 0 if the string is not a valid byte.
+     *
+     * @param str the String to convert
+     * @return the byte value or 0 if conversion fails
+     */
+    public static byte stringToByte(String str) {
+        if (CommonUtils.isNull(str)) {
+            return 0;
+        }
+        try {
+            return Byte.parseByte(str);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    /**
+     * Converts a String to a primitive short. Returns 0 if the string is not a valid short.
+     *
+     * @param str the String to convert
+     * @return the short value or 0 if conversion fails
+     */
+    public static short stringToShort(String str) {
+        if (CommonUtils.isNull(str)) {
+            return 0;
+        }
+        try {
+            return Short.parseShort(str);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    /**
+     * Converts a String to a primitive long. Returns 0L if the string is not a valid long.
+     *
+     * @param str the String to convert
+     * @return the long value or 0L if conversion fails
+     */
+    public static long stringToLong(String str) {
+        if (CommonUtils.isNull(str)) {
+            return 0L;
+        }
+        try {
+            return Long.parseLong(str);
+        } catch (NumberFormatException e) {
+            return 0L;
+        }
+    }
+
+    /**
+     * Converts a String to a primitive float. Returns 0.0f if the string is not a valid float.
+     *
+     * @param str the String to convert
+     * @return the float value or 0.0f if conversion fails
+     */
+    public static float stringToFloat(String str) {
+        if (CommonUtils.isNull(str)) {
+            return 0.0f;
+        }
+        try {
+            return Float.parseFloat(str);
+        } catch (NumberFormatException e) {
+            return 0.0f;
+        }
+    }
+
+    /**
+     * Converts a String to a primitive double. Returns 0.0 if the string is not a valid double.
+     *
+     * @param str the String to convert
+     * @return the double value or 0.0 if conversion fails
+     */
+    public static double stringToDouble(String str) {
+        if (CommonUtils.isNull(str)) {
+            return 0.0;
+        }
+        try {
+            return Double.parseDouble(str);
+        } catch (NumberFormatException e) {
+            return 0.0;
+        }
+    }
+
+    /**
+     * Converts a String to a primitive char. Returns '\u0000' if the string is null or empty.
+     *
+     * @param str the String to convert
+     * @return the char value or '\u0000' if the string is null or empty
+     */
+    public static char stringToChar(String str) {
+        return CommonUtils.isNotNull(str) && !str.isEmpty() ? str.charAt(0) : '\u0000';
+    }
+
+    /**
+     * Converts a String to a Character object. Returns null if the string is null or empty.
+     *
+     * @param str the String to convert
+     * @return the Character value or null if the string is null or empty
+     */
+    public static Character stringToCharacter(String str) {
+        return CommonUtils.isNotNull(str) && !str.isEmpty() ? str.charAt(0) : null;
+    }
+
 }

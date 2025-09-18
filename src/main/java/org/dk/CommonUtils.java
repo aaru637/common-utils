@@ -46,6 +46,10 @@ public class CommonUtils {
     }
 
     private static final String FULL_STOP = "\\.";
+
+    /**
+     * An empty string constant.
+     */
     public static final String EMPTY_STRING = "";
     private static final int DEFAULT_RANDOM_STRING_LENGTH = 10;
     private static final int DEFAULT_RANDOM_INT_MIN = 0;
@@ -206,7 +210,7 @@ public class CommonUtils {
      * @return {@code null} if {@code str} is {@code null} or empty, otherwise {@code str}
      */
     public static String isEmptyReturnNull(String str) {
-        return isEmpty(str) ? null : str;
+        return isEmpty(str) ? null : str.trim();
     }
 
     /**

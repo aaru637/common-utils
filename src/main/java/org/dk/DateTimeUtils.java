@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.IsoFields;
 import java.util.Date;
 import java.util.List;
@@ -153,6 +154,37 @@ public class DateTimeUtils {
         } catch (IllegalArgumentException e) {
             return false;
         }
+    }
+
+    /**
+     * Checks if the given date string is valid for the specified format.
+     *
+     * @param dateString the date string
+     * @param format     the date format
+     * @return true if valid, false otherwise
+     */
+    public static boolean isValidDate(String dateString, String format) {
+        if (CommonUtils.isNull(dateString) || CommonUtils.isNull(format) || !isValidDateFormat(format)) {
+            return false;
+        }
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(format);
+            sdf.setLenient(false);
+            sdf.parse(dateString);
+            return true;
+        } catch (ParseException | IllegalArgumentException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Checks if the given date string is valid using the default date format.
+     *
+     * @param dateString the date string
+     * @return true if valid, false otherwise
+     */
+    public static boolean isValidDate(String dateString) {
+        return isValidDate(dateString, DEFAULT_DATE_FORMAT);
     }
 
     /**
@@ -680,6 +712,46 @@ public class DateTimeUtils {
     public static int getWeekOfYear(int year, int month, int day) {
         LocalDateTime dateTime = LocalDateTime.of(year, month, day, 0, 0);
         return dateTime.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
+    }
+
+    /**
+     * Converts the current date and time to a Date object in the system default time zone.
+     *
+     * @return Date object
+     */
+    public Date toDate() {
+        return Date.from(this.dateTime.atZone(zoneId).toInstant());
+    }
+
+    /**
+     * Converts the current date and time to a Date object in the specified time zone.
+     *
+     * @param zoneId the ZoneId to use
+     * @return Date object
+     */
+    public Date toDate(ZoneId zoneId) {
+        return Date.from(this.dateTime.atZone(zoneId).toInstant());
+    }
+
+    /**
+     * Converts the given LocalDateTime to a Date object in the specified time zone.
+     *
+     * @param dateTime the LocalDateTime to convert
+     * @param zoneId   the ZoneId to use
+     * @return Date object
+     */
+    public static Date toDate(LocalDateTime dateTime, ZoneId zoneId) {
+        return Date.from(dateTime.atZone(zoneId).toInstant());
+    }
+
+    /**
+     * Converts the given LocalDateTime to a Date object in the system default time zone.
+     *
+     * @param dateTime the LocalDateTime to convert
+     * @return Date object
+     */
+    public static Date toDate(LocalDateTime dateTime) {
+        return Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
     /**
