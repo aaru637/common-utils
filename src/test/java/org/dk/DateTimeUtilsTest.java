@@ -313,5 +313,193 @@ class DateTimeUtilsTest {
     void isValidDateWithDefaultFormatAndNullDateReturnsFalse() {
         assertFalse(DateTimeUtils.isValidDate(null));
     }
+
+    private final DateTimeUtils utils = new DateTimeUtils();
+    private final LocalDateTime baseTime = LocalDateTime.of(2025, 10, 29, 10, 30, 0);
+
+    @Test
+    void testGetYear() {
+        assertEquals(2025, DateTimeUtils.getYear(baseTime));
+    }
+
+    @Test
+    void testGetMonth() {
+        assertEquals(10, DateTimeUtils.getMonth(baseTime));
+    }
+
+    @Test
+    void testGetDay() {
+        assertEquals(29, DateTimeUtils.getDay(baseTime));
+    }
+
+    @Test
+    void testGetMonthName() {
+        assertEquals("OCTOBER", DateTimeUtils.getMonthName(baseTime));
+    }
+
+    @Test
+    void testAddDays() {
+        LocalDateTime result = DateTimeUtils.addDays(baseTime, 5);
+        assertEquals(baseTime.plusDays(5), result);
+    }
+
+    @Test
+    void testSubtractDays() {
+        LocalDateTime result = DateTimeUtils.subtractDays(baseTime, 5);
+        assertEquals(baseTime.minusDays(5), result);
+    }
+
+    @Test
+    void testAddHours() {
+        LocalDateTime result = DateTimeUtils.addHours(baseTime, 2);
+        assertEquals(baseTime.plusHours(2), result);
+    }
+
+    @Test
+    void testSubtractHours() {
+        LocalDateTime result = DateTimeUtils.subtractHours(baseTime, 2);
+        assertEquals(baseTime.minusHours(2), result);
+    }
+
+    @Test
+    void testAddMinutes() {
+        LocalDateTime result = DateTimeUtils.addMinutes(baseTime, 15);
+        assertEquals(baseTime.plusMinutes(15), result);
+    }
+
+    @Test
+    void testSubtractMinutes() {
+        LocalDateTime result = DateTimeUtils.subtractMinutes(baseTime, 15);
+        assertEquals(baseTime.minusMinutes(15), result);
+    }
+
+    @Test
+    void testAddSeconds() {
+        LocalDateTime result = DateTimeUtils.addSeconds(baseTime, 30);
+        assertEquals(baseTime.plusSeconds(30), result);
+    }
+
+    @Test
+    void testSubtractSeconds() {
+        LocalDateTime result = utils.subtractSeconds(baseTime, 30);
+        assertEquals(baseTime.minusSeconds(30), result);
+    }
+
+    @Test
+    void testDifferenceInDays() {
+        LocalDateTime earlier = baseTime.minusDays(3);
+        assertEquals(3, DateTimeUtils.differenceInDays(earlier, baseTime));
+    }
+
+    @Test
+    void testDifferenceInHours() {
+        LocalDateTime earlier = baseTime.minusHours(12);
+        assertEquals(12, DateTimeUtils.differenceInHours(earlier, baseTime));
+    }
+
+    @Test
+    void testDifferenceInMinutes() {
+        LocalDateTime earlier = baseTime.minusMinutes(90);
+        assertEquals(90, DateTimeUtils.differenceInMinutes(earlier, baseTime));
+    }
+
+    @Test
+    void testDifferenceInSeconds() {
+        LocalDateTime earlier = baseTime.minusSeconds(120);
+        assertEquals(120, DateTimeUtils.differenceInSeconds(earlier, baseTime));
+    }
+
+    @Test
+    void testIsBefore() {
+        LocalDateTime later = baseTime.plusDays(1);
+        assertTrue(DateTimeUtils.isBefore(baseTime, later));
+    }
+
+    @Test
+    void testIsAfter() {
+        LocalDateTime earlier = baseTime.minusDays(1);
+        assertTrue(DateTimeUtils.isAfter(baseTime, earlier));
+    }
+
+    @Test
+    void testIsEqual() {
+        assertTrue(DateTimeUtils.isEqual(baseTime, baseTime));
+    }
+
+    @Test
+    void testGetDayOfWeek() {
+        // 29 Oct 2025 is a Wednesday => 3
+        assertEquals(3, DateTimeUtils.getDayOfWeek(baseTime));
+    }
+
+    @Test
+    void testGetDayOfMonth() {
+        assertEquals(29, DateTimeUtils.getDayOfMonth(baseTime));
+    }
+
+    @Test
+    void testGetDayOfYear() {
+        assertEquals(baseTime.getDayOfYear(), DateTimeUtils.getDayOfYear(baseTime));
+    }
+
+    @Test
+    void testGetStartOfWeek() {
+        LocalDateTime expected = baseTime.minusDays(baseTime.getDayOfWeek().getValue() - 1);
+        assertEquals(expected, DateTimeUtils.getStartOfWeek(baseTime));
+    }
+
+    @Test
+    void testGetStartOfNextWeek() {
+        LocalDateTime expected = DateTimeUtils.getStartOfWeek(baseTime).plusWeeks(1);
+        assertEquals(expected, DateTimeUtils.getStartOfNextWeek(baseTime));
+    }
+
+    @Test
+    void testGetStartOfMonth() {
+        LocalDateTime expected = baseTime.withDayOfMonth(1);
+        assertEquals(expected, DateTimeUtils.getStartOfMonth(baseTime));
+    }
+
+    @Test
+    void testGetStartOfNextMonth() {
+        LocalDateTime expected = baseTime.withDayOfMonth(1).plusMonths(1);
+        assertEquals(expected, DateTimeUtils.getStartOfNextMonth(baseTime));
+    }
+
+    @Test
+    void testGetStartOfYear() {
+        LocalDateTime expected = baseTime.withDayOfYear(1);
+        assertEquals(expected, DateTimeUtils.getStartOfYear(baseTime));
+    }
+
+    @Test
+    void testGetStartOfNextYear() {
+        LocalDateTime expected = baseTime.withDayOfYear(1).plusYears(1);
+        assertEquals(expected, DateTimeUtils.getStartOfNextYear(baseTime));
+    }
+
+    @Test
+    void testGetNextMonth() {
+        LocalDateTime expected = baseTime.plusMonths(1);
+        assertEquals(expected, DateTimeUtils.getNextMonth(baseTime));
+    }
+
+    @Test
+    void testGetNextMonthWithParam() {
+        LocalDateTime expected = baseTime.plusMonths(3);
+        assertEquals(expected, DateTimeUtils.getNextMonth(baseTime, 3));
+    }
+
+    @Test
+    void testGetNextYear() {
+        LocalDateTime expected = baseTime.plusYears(1);
+        assertEquals(expected, DateTimeUtils.getNextYear(baseTime));
+    }
+
+    @Test
+    void testGetNextYearWithParam() {
+        LocalDateTime expected = baseTime.plusYears(5);
+        assertEquals(expected, DateTimeUtils.getNextYear(baseTime, 5));
+    }
 }
 
