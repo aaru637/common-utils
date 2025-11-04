@@ -552,6 +552,343 @@ public class DateTimeUtils {
     }
 
     /**
+     * Gets the year from the given LocalDateTime.
+     *
+     * @param dateTime the LocalDateTime
+     * @return the year
+     */
+    public static int getYear(LocalDateTime dateTime) {
+        return dateTime.getYear();
+    }
+
+    /**
+     * Gets the month value (1-12) from the given LocalDateTime.
+     *
+     * @param dateTime the LocalDateTime
+     * @return the month value
+     */
+    public static int getMonth(LocalDateTime dateTime) {
+        return dateTime.getMonthValue();
+    }
+
+    /**
+     * Gets the day of the month from the given LocalDateTime.
+     *
+     * @param dateTime the LocalDateTime
+     * @return the day of the month
+     */
+    public static int getDay(LocalDateTime dateTime) {
+        return dateTime.getDayOfMonth();
+    }
+
+    /**
+     * Gets the month name from the given LocalDateTime.
+     *
+     * @param dateTime the LocalDateTime
+     * @return the month name
+     */
+    public static String getMonthName(LocalDateTime dateTime) {
+        return dateTime.getMonth().name();
+    }
+
+    /**
+     * Adds the specified number of days to the given LocalDateTime.
+     *
+     * @param dateTime the LocalDateTime
+     * @param days     number of days to add
+     * @return new LocalDateTime
+     */
+    public static LocalDateTime addDays(LocalDateTime dateTime, long days) {
+        return dateTime.plusDays(days);
+    }
+
+    /**
+     * Subtracts the specified number of days from the given LocalDateTime.
+     *
+     * @param dateTime the LocalDateTime
+     * @param days     number of days to subtract
+     * @return new LocalDateTime
+     */
+    public static LocalDateTime subtractDays(LocalDateTime dateTime, long days) {
+        return dateTime.minusDays(days);
+    }
+
+    /**
+     * Adds the specified number of hours to the given LocalDateTime.
+     *
+     * @param dateTime the LocalDateTime
+     * @param hours    number of hours to add
+     * @return new LocalDateTime
+     */
+    public static LocalDateTime addHours(LocalDateTime dateTime, int hours) {
+        return dateTime.plusHours(hours);
+    }
+
+    /**
+     * Subtracts the specified number of hours from the given LocalDateTime.
+     *
+     * @param dateTime the LocalDateTime
+     * @param hours    number of hours to subtract
+     * @return new LocalDateTime
+     */
+    public static LocalDateTime subtractHours(LocalDateTime dateTime, int hours) {
+        return dateTime.minusHours(hours);
+    }
+
+    /**
+     * Adds the specified number of minutes to the given LocalDateTime.
+     *
+     * @param dateTime the LocalDateTime
+     * @param minutes  number of minutes to add
+     * @return new LocalDateTime
+     */
+    public static LocalDateTime addMinutes(LocalDateTime dateTime, int minutes) {
+        return dateTime.plusMinutes(minutes);
+    }
+
+    /**
+     * Subtracts the specified number of minutes from the given LocalDateTime.
+     *
+     * @param dateTime the LocalDateTime
+     * @param minutes  number of minutes to subtract
+     * @return new LocalDateTime
+     */
+    public static LocalDateTime subtractMinutes(LocalDateTime dateTime, int minutes) {
+        return dateTime.minusMinutes(minutes);
+    }
+
+    /**
+     * Adds the specified number of seconds to the given LocalDateTime.
+     *
+     * @param dateTime the LocalDateTime
+     * @param seconds  number of seconds to add
+     * @return new LocalDateTime
+     */
+    public static LocalDateTime addSeconds(LocalDateTime dateTime, int seconds) {
+        return dateTime.plusSeconds(seconds);
+    }
+
+    /**
+     * Subtracts the specified number of seconds from the given LocalDateTime.
+     *
+     * @param dateTime the LocalDateTime
+     * @param seconds  number of seconds to subtract
+     * @return new LocalDateTime
+     */
+    public LocalDateTime subtractSeconds(LocalDateTime dateTime, int seconds) {
+        return dateTime.minusSeconds(seconds);
+    }
+
+    /**
+     * Calculates the difference in days between two LocalDateTime values.
+     *
+     * @param fromDateTime the start date-time
+     * @param toDateTime   the end date-time
+     * @return difference in days
+     */
+    public static long differenceInDays(LocalDateTime fromDateTime, LocalDateTime toDateTime) {
+        return Duration.between(fromDateTime, toDateTime).toDays();
+    }
+
+    /**
+     * Calculates the difference in hours between two LocalDateTime values.
+     *
+     * @param fromDateTime the start date-time
+     * @param toDateTime   the end date-time
+     * @return difference in hours
+     */
+    public static long differenceInHours(LocalDateTime fromDateTime, LocalDateTime toDateTime) {
+        return Duration.between(fromDateTime, toDateTime).toHours();
+    }
+
+    /**
+     * Calculates the difference in minutes between two LocalDateTime values.
+     *
+     * @param fromDateTime the start date-time
+     * @param toDateTime   the end date-time
+     * @return difference in minutes
+     */
+    public static long differenceInMinutes(LocalDateTime fromDateTime, LocalDateTime toDateTime) {
+        return Duration.between(fromDateTime, toDateTime).toMinutes();
+    }
+
+    /**
+     * Calculates the difference in seconds between two LocalDateTime values.
+     *
+     * @param fromDateTime the start date-time
+     * @param toDateTime   the end date-time
+     * @return difference in seconds
+     */
+    public static long differenceInSeconds(LocalDateTime fromDateTime, LocalDateTime toDateTime) {
+        return Duration.between(fromDateTime, toDateTime).getSeconds();
+    }
+
+    /**
+     * Checks if the given dateTime1 is before dateTime2.
+     *
+     * @param dateTime1 the first LocalDateTime
+     * @param dateTime2 the second LocalDateTime
+     * @return true if dateTime1 is before dateTime2, false otherwise
+     */
+    public static boolean isBefore(LocalDateTime dateTime1, LocalDateTime dateTime2) {
+        return dateTime1.isBefore(dateTime2);
+    }
+
+    /**
+     * Checks if the given dateTime1 is after dateTime2.
+     *
+     * @param dateTime1 the first LocalDateTime
+     * @param dateTime2 the second LocalDateTime
+     * @return true if dateTime1 is after dateTime2, false otherwise
+     */
+    public static boolean isAfter(LocalDateTime dateTime1, LocalDateTime dateTime2) {
+        return dateTime1.isAfter(dateTime2);
+    }
+
+    /**
+     * Checks if the given dateTime1 is equal to dateTime2.
+     *
+     * @param dateTime1 the first LocalDateTime
+     * @param dateTime2 the second LocalDateTime
+     * @return true if equal, false otherwise
+     */
+    public static boolean isEqual(LocalDateTime dateTime1, LocalDateTime dateTime2) {
+        return dateTime1.isEqual(dateTime2);
+    }
+
+    /**
+     * Gets the day of the week as an integer (1=Monday, 7=Sunday) from the given LocalDateTime.
+     *
+     * @param dateTime the LocalDateTime
+     * @return day of week value
+     */
+    public static int getDayOfWeek(LocalDateTime dateTime) {
+        return dateTime.getDayOfWeek().getValue();
+    }
+
+    /**
+     * Gets the day of the month from the given LocalDateTime.
+     *
+     * @param dateTime the LocalDateTime
+     * @return day of the month
+     */
+    public static int getDayOfMonth(LocalDateTime dateTime) {
+        return dateTime.getDayOfMonth();
+    }
+
+    /**
+     * Gets the day of the year from the given LocalDateTime.
+     *
+     * @param dateTime the LocalDateTime
+     * @return day of the year
+     */
+    public static int getDayOfYear(LocalDateTime dateTime) {
+        return dateTime.getDayOfYear();
+    }
+
+    /**
+     * Gets the LocalDateTime representing the start of the week (Monday) for the given dateTime.
+     *
+     * @param dateTime the LocalDateTime
+     * @return start of the week
+     */
+    public static LocalDateTime getStartOfWeek(LocalDateTime dateTime) {
+        return dateTime.minusDays(dateTime.getDayOfWeek().getValue() - 1);
+    }
+
+    /**
+     * Gets the LocalDateTime representing the start of the next week for the given dateTime.
+     *
+     * @param dateTime the LocalDateTime
+     * @return start of the next week
+     */
+    public static LocalDateTime getStartOfNextWeek(LocalDateTime dateTime) {
+        return getStartOfWeek(dateTime).plusWeeks(1);
+    }
+
+    /**
+     * Gets the LocalDateTime representing the start of the month for the given dateTime.
+     *
+     * @param dateTime the LocalDateTime
+     * @return start of the month
+     */
+    public static LocalDateTime getStartOfMonth(LocalDateTime dateTime) {
+        return dateTime.withDayOfMonth(1);
+    }
+
+    /**
+     * Gets the LocalDateTime representing the start of the next month for the given dateTime.
+     *
+     * @param dateTime the LocalDateTime
+     * @return start of the next month
+     */
+    public static LocalDateTime getStartOfNextMonth(LocalDateTime dateTime) {
+        return getStartOfMonth(dateTime).plusMonths(1);
+    }
+
+    /**
+     * Gets the LocalDateTime representing the start of the year for the given dateTime.
+     *
+     * @param dateTime the LocalDateTime
+     * @return start of the year
+     */
+    public static LocalDateTime getStartOfYear(LocalDateTime dateTime) {
+        return dateTime.withDayOfYear(1);
+    }
+
+    /**
+     * Gets the LocalDateTime representing the start of the next year for the given dateTime.
+     *
+     * @param dateTime the LocalDateTime
+     * @return start of the next year
+     */
+    public static LocalDateTime getStartOfNextYear(LocalDateTime dateTime) {
+        return getStartOfYear(dateTime).plusYears(1);
+    }
+
+    /**
+     * Gets the LocalDateTime for the same day next month based on the given dateTime.
+     *
+     * @param dateTime the LocalDateTime
+     * @return LocalDateTime next month
+     */
+    public static LocalDateTime getNextMonth(LocalDateTime dateTime) {
+        return dateTime.plusMonths(1);
+    }
+
+    /**
+     * Gets the LocalDateTime for the same day after the specified number of months.
+     *
+     * @param dateTime the LocalDateTime
+     * @param months   number of months to add
+     * @return LocalDateTime after months
+     */
+    public static LocalDateTime getNextMonth(LocalDateTime dateTime, int months) {
+        return dateTime.plusMonths(months);
+    }
+
+    /**
+     * Gets the LocalDateTime for the same day next year based on the given dateTime.
+     *
+     * @param dateTime the LocalDateTime
+     * @return LocalDateTime next year
+     */
+    public static LocalDateTime getNextYear(LocalDateTime dateTime) {
+        return dateTime.plusYears(1);
+    }
+
+    /**
+     * Gets the LocalDateTime for the same day after the specified number of years.
+     *
+     * @param dateTime the LocalDateTime
+     * @param years    number of years to add
+     * @return LocalDateTime after years
+     */
+    public static LocalDateTime getNextYear(LocalDateTime dateTime, int years) {
+        return dateTime.plusYears(years);
+    }
+
+    /**
      * Checks if the current year is a leap year.
      *
      * @return true if leap year, false otherwise
