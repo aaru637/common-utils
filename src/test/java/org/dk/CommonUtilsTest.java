@@ -117,6 +117,111 @@ class CommonUtilsTest {
     }
 
     @Test
+    void testIsBooleansEqualAndNotEqual() {
+        assertTrue(CommonUtils.isBooleansEqual(true, true));
+        assertTrue(CommonUtils.isBooleansEqual(false, false));
+        assertFalse(CommonUtils.isBooleansEqual(true, false));
+        assertFalse(CommonUtils.isBooleansEqual(null, true));
+        assertFalse(CommonUtils.isBooleansEqual(true, null));
+        assertFalse(CommonUtils.isBooleansEqual(null, null));
+
+        assertFalse(CommonUtils.isBooleansNotEqual(true, true));
+        assertTrue(CommonUtils.isBooleansNotEqual(true, false));
+        assertTrue(CommonUtils.isBooleansNotEqual(null, true));
+    }
+
+    @Test
+    void testIsLongsEqualAndNotEqual() {
+        assertTrue(CommonUtils.isLongsEqual(100L, 100L));
+        assertFalse(CommonUtils.isLongsEqual(100L, 200L));
+        assertFalse(CommonUtils.isLongsEqual(null, 100L));
+        assertFalse(CommonUtils.isLongsEqual(100L, null));
+        assertFalse(CommonUtils.isLongsEqual(null, null));
+
+        assertFalse(CommonUtils.isLongsNotEqual(100L, 100L));
+        assertTrue(CommonUtils.isLongsNotEqual(100L, 200L));
+        assertTrue(CommonUtils.isLongsNotEqual(null, 100L));
+    }
+
+    @Test
+    void testIsIntegersEqualAndNotEqual() {
+        assertTrue(CommonUtils.isIntegersEqual(100, 100));
+        assertFalse(CommonUtils.isIntegersEqual(100, 200));
+        assertFalse(CommonUtils.isIntegersEqual(null, 100));
+        assertFalse(CommonUtils.isIntegersEqual(100, null));
+        assertFalse(CommonUtils.isIntegersEqual(null, null));
+
+        assertFalse(CommonUtils.isIntegersNotEqual(100, 100));
+        assertTrue(CommonUtils.isIntegersNotEqual(100, 200));
+        assertTrue(CommonUtils.isIntegersNotEqual(null, 100));
+    }
+
+    @Test
+    void testIsDoublesEqualAndNotEqual() {
+        assertTrue(CommonUtils.isDoublesEqual(10.5, 10.5));
+        assertFalse(CommonUtils.isDoublesEqual(10.5, 20.5));
+        assertFalse(CommonUtils.isDoublesEqual(null, 10.5));
+        assertFalse(CommonUtils.isDoublesEqual(10.5, null));
+        assertFalse(CommonUtils.isDoublesEqual(null, null));
+
+        assertFalse(CommonUtils.isDoublesNotEqual(10.5, 10.5));
+        assertTrue(CommonUtils.isDoublesNotEqual(10.5, 20.5));
+        assertTrue(CommonUtils.isDoublesNotEqual(null, 10.5));
+    }
+
+    @Test
+    void testIsFloatsEqualAndNotEqual() {
+        assertTrue(CommonUtils.isFloatsEqual(10.5f, 10.5f));
+        assertFalse(CommonUtils.isFloatsEqual(10.5f, 20.5f));
+        assertFalse(CommonUtils.isFloatsEqual(null, 10.5f));
+        assertFalse(CommonUtils.isFloatsEqual(10.5f, null));
+        assertFalse(CommonUtils.isFloatsEqual(null, null));
+
+        assertFalse(CommonUtils.isFloatsNotEqual(10.5f, 10.5f));
+        assertTrue(CommonUtils.isFloatsNotEqual(10.5f, 20.5f));
+        assertTrue(CommonUtils.isFloatsNotEqual(null, 10.5f));
+    }
+
+    @Test
+    void testIsShortsEqualAndNotEqual() {
+        assertTrue(CommonUtils.isShortsEqual((short) 10, (short) 10));
+        assertFalse(CommonUtils.isShortsEqual((short) 10, (short) 20));
+        assertFalse(CommonUtils.isShortsEqual(null, (short) 10));
+        assertFalse(CommonUtils.isShortsEqual((short) 10, null));
+        assertFalse(CommonUtils.isShortsEqual(null, null));
+
+        assertFalse(CommonUtils.isShortsNotEqual((short) 10, (short) 10));
+        assertTrue(CommonUtils.isShortsNotEqual((short) 10, (short) 20));
+        assertTrue(CommonUtils.isShortsNotEqual(null, (short) 10));
+    }
+
+    @Test
+    void testIsBytesEqualAndNotEqual() {
+        assertTrue(CommonUtils.isBytesEqual((byte) 10, (byte) 10));
+        assertFalse(CommonUtils.isBytesEqual((byte) 10, (byte) 20));
+        assertFalse(CommonUtils.isBytesEqual(null, (byte) 10));
+        assertFalse(CommonUtils.isBytesEqual((byte) 10, null));
+        assertFalse(CommonUtils.isBytesEqual(null, null));
+
+        assertFalse(CommonUtils.isBytesNotEqual((byte) 10, (byte) 10));
+        assertTrue(CommonUtils.isBytesNotEqual((byte) 10, (byte) 20));
+        assertTrue(CommonUtils.isBytesNotEqual(null, (byte) 10));
+    }
+
+    @Test
+    void testIsCharactersEqualAndNotEqual() {
+        assertTrue(CommonUtils.isCharactersEqual('a', 'a'));
+        assertFalse(CommonUtils.isCharactersEqual('a', 'b'));
+        assertFalse(CommonUtils.isCharactersEqual(null, 'a'));
+        assertFalse(CommonUtils.isCharactersEqual('a', null));
+        assertFalse(CommonUtils.isCharactersEqual(null, null));
+
+        assertFalse(CommonUtils.isCharactersNotEqual('a', 'a'));
+        assertTrue(CommonUtils.isCharactersNotEqual('a', 'b'));
+        assertTrue(CommonUtils.isCharactersNotEqual(null, 'a'));
+    }
+
+    @Test
     void testIsStringsEqualWithIgnoreCase() {
         assertTrue(CommonUtils.isStringsEqualWithIgnoreCase("abc", "ABC"));
         assertTrue(CommonUtils.isStringsEqualWithIgnoreCase(" abc ", "ABC"));
