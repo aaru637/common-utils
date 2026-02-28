@@ -1,10 +1,10 @@
-/*
+/**
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -13,12 +13,13 @@
  */
 package org.dk;
 
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
-import java.lang.reflect.Type;
 
 /**
  * Utility class providing common helper methods for JSON serialization and deserialization
@@ -37,15 +38,21 @@ import java.lang.reflect.Type;
  */
 public class JsonUtils {
 
+    private static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+    private static final Gson DEFAULT_GSON = new GsonBuilder()
+            .setDateFormat(DEFAULT_DATE_FORMAT)
+            .create();
+    private static final Gson PRETTY_GSON = new GsonBuilder()
+            .setDateFormat(DEFAULT_DATE_FORMAT)
+            .setPrettyPrinting()
+            .create();
+
     /**
      * Private constructor to prevent instantiation.
      */
     private JsonUtils() {
         // Private constructor to prevent instantiation
     }
-
-    private static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-    private static final GsonBuilder gson = new GsonBuilder();
 
     /**
      * Serializes an object to a JSON string using the default date format.
@@ -57,7 +64,7 @@ public class JsonUtils {
         if (CommonUtils.isNull(object)) {
             return null;
         }
-        return gson.setDateFormat(DEFAULT_DATE_FORMAT).create().toJson(object);
+        return DEFAULT_GSON.toJson(object);
     }
 
     /**
@@ -78,7 +85,7 @@ public class JsonUtils {
         if (!DateTimeUtils.isValidDateFormat(dateFormat)) {
             throw new IllegalArgumentException("Invalid date format: " + dateFormat);
         }
-        return gson.setDateFormat(dateFormat).create().toJson(object);
+        return new GsonBuilder().setDateFormat(dateFormat).create().toJson(object);
     }
 
     /**
@@ -91,7 +98,7 @@ public class JsonUtils {
         if (CommonUtils.isNull(object)) {
             return null;
         }
-        return gson.setDateFormat(DEFAULT_DATE_FORMAT).setPrettyPrinting().create().toJson(object);
+        return PRETTY_GSON.toJson(object);
     }
 
     /**
@@ -112,7 +119,7 @@ public class JsonUtils {
         if (!DateTimeUtils.isValidDateFormat(dateFormat)) {
             throw new IllegalArgumentException("Invalid date format: " + dateFormat);
         }
-        return gson.setDateFormat(dateFormat).setPrettyPrinting().create().toJson(object);
+        return new GsonBuilder().setDateFormat(dateFormat).setPrettyPrinting().create().toJson(object);
     }
 
     /**
@@ -127,7 +134,7 @@ public class JsonUtils {
         if (CommonUtils.isNull(json)) {
             return null;
         }
-        return gson.setDateFormat(DEFAULT_DATE_FORMAT).create().fromJson(json, clazz);
+        return DEFAULT_GSON.fromJson(json, clazz);
     }
 
     /**
@@ -144,11 +151,8 @@ public class JsonUtils {
         if (CommonUtils.isNull(json)) {
             return null;
         }
-        GsonBuilder builder = gson.setDateFormat(DEFAULT_DATE_FORMAT);
-        if (pretty) {
-            builder.setPrettyPrinting();
-        }
-        return builder.create().fromJson(json, clazz);
+        Gson gson = pretty ? PRETTY_GSON : DEFAULT_GSON;
+        return gson.fromJson(json, clazz);
     }
 
     /**
@@ -171,7 +175,7 @@ public class JsonUtils {
         if (!DateTimeUtils.isValidDateFormat(dateFormat)) {
             throw new IllegalArgumentException("Invalid date format: " + dateFormat);
         }
-        return gson.setDateFormat(dateFormat).create().fromJson(json, clazz);
+        return new GsonBuilder().setDateFormat(dateFormat).create().fromJson(json, clazz);
     }
 
     /**
@@ -196,7 +200,7 @@ public class JsonUtils {
         if (!DateTimeUtils.isValidDateFormat(dateFormat)) {
             throw new IllegalArgumentException("Invalid date format: " + dateFormat);
         }
-        GsonBuilder builder = gson.setDateFormat(dateFormat);
+        GsonBuilder builder = new GsonBuilder().setDateFormat(dateFormat);
         if (pretty) {
             builder.setPrettyPrinting();
         }
@@ -216,7 +220,7 @@ public class JsonUtils {
             return null;
         }
         Type type = TypeToken.getParameterized(List.class, clazz).getType();
-        return gson.setDateFormat(DEFAULT_DATE_FORMAT).create().fromJson(json, type);
+        return DEFAULT_GSON.fromJson(json, type);
     }
 
     /**
@@ -240,7 +244,7 @@ public class JsonUtils {
             throw new IllegalArgumentException("Invalid date format: " + dateFormat);
         }
         Type type = TypeToken.getParameterized(List.class, clazz).getType();
-        return gson.setDateFormat(dateFormat).create().fromJson(json, type);
+        return new GsonBuilder().setDateFormat(dateFormat).create().fromJson(json, type);
     }
 
     /**
@@ -258,11 +262,8 @@ public class JsonUtils {
             return null;
         }
         Type type = TypeToken.getParameterized(List.class, clazz).getType();
-        GsonBuilder builder = gson.setDateFormat(DEFAULT_DATE_FORMAT);
-        if (pretty) {
-            builder.setPrettyPrinting();
-        }
-        return builder.create().fromJson(json, type);
+        Gson gson = pretty ? PRETTY_GSON : DEFAULT_GSON;
+        return gson.fromJson(json, type);
     }
 
     /**
@@ -288,7 +289,7 @@ public class JsonUtils {
             throw new IllegalArgumentException("Invalid date format: " + dateFormat);
         }
         Type type = TypeToken.getParameterized(List.class, clazz).getType();
-        GsonBuilder builder = gson.setDateFormat(dateFormat);
+        GsonBuilder builder = new GsonBuilder().setDateFormat(dateFormat);
         if (pretty) {
             builder.setPrettyPrinting();
         }
@@ -301,15 +302,16 @@ public class JsonUtils {
      * @param json       the JSON string
      * @param keyClass   the class of the map keys
      * @param valueClass the class of the map values
-     * @param <T>        the type of the map keys and values
+     * @param <K>        the type of the map keys
+     * @param <V>        the type of the map values
      * @return the deserialized map or null if the JSON is null
      */
-    public static <T> Map<T, T> fromJsonMap(String json, Class<T> keyClass, Class<T> valueClass) {
+    public static <K, V> Map<K, V> fromJsonMap(String json, Class<K> keyClass, Class<V> valueClass) {
         if (CommonUtils.isNull(json)) {
             return null;
         }
         Type type = TypeToken.getParameterized(Map.class, keyClass, valueClass).getType();
-        return gson.setDateFormat(DEFAULT_DATE_FORMAT).create().fromJson(json, type);
+        return DEFAULT_GSON.fromJson(json, type);
     }
 
     /**
@@ -319,11 +321,12 @@ public class JsonUtils {
      * @param keyClass   the class of the map keys
      * @param valueClass the class of the map values
      * @param dateFormat the date format to use
-     * @param <T>        the type of the map keys and values
+     * @param <K>        the type of the map keys
+     * @param <V>        the type of the map values
      * @return the deserialized map or null if the JSON is null
      * @throws IllegalArgumentException if the date format is invalid
      */
-    public static <T> Map<T, T> fromJsonMap(String json, Class<T> keyClass, Class<T> valueClass, String dateFormat) {
+    public static <K, V> Map<K, V> fromJsonMap(String json, Class<K> keyClass, Class<V> valueClass, String dateFormat) {
         if (CommonUtils.isNull(json)) {
             return null;
         }
@@ -334,7 +337,7 @@ public class JsonUtils {
             throw new IllegalArgumentException("Invalid date format: " + dateFormat);
         }
         Type type = TypeToken.getParameterized(Map.class, keyClass, valueClass).getType();
-        return gson.setDateFormat(dateFormat).create().fromJson(json, type);
+        return new GsonBuilder().setDateFormat(dateFormat).create().fromJson(json, type);
     }
 
     /**
@@ -345,19 +348,17 @@ public class JsonUtils {
      * @param keyClass   the class of the map keys
      * @param valueClass the class of the map values
      * @param pretty     whether to enable pretty printing
-     * @param <T>        the type of the map keys and values
+     * @param <K>        the type of the map keys
+     * @param <V>        the type of the map values
      * @return the deserialized map or null if the JSON is null
      */
-    public static <T> Map<T, T> fromJsonMap(String json, Class<T> keyClass, Class<T> valueClass, boolean pretty) {
+    public static <K, V> Map<K, V> fromJsonMap(String json, Class<K> keyClass, Class<V> valueClass, boolean pretty) {
         if (CommonUtils.isNull(json)) {
             return null;
         }
         Type type = TypeToken.getParameterized(Map.class, keyClass, valueClass).getType();
-        GsonBuilder builder = gson.setDateFormat(DEFAULT_DATE_FORMAT);
-        if (pretty) {
-            builder.setPrettyPrinting();
-        }
-        return builder.create().fromJson(json, type);
+        Gson gson = pretty ? PRETTY_GSON : DEFAULT_GSON;
+        return gson.fromJson(json, type);
     }
 
     /**
@@ -369,11 +370,12 @@ public class JsonUtils {
      * @param valueClass the class of the map values
      * @param dateFormat the date format to use
      * @param pretty     whether to enable pretty printing
-     * @param <T>        the type of the map keys and values
+     * @param <K>        the type of the map keys
+     * @param <V>        the type of the map values
      * @return the deserialized map or null if the JSON is null
      * @throws IllegalArgumentException if the date format is invalid
      */
-    public static <T> Map<T, T> fromJsonMap(String json, Class<T> keyClass, Class<T> valueClass, String dateFormat, boolean pretty) {
+    public static <K, V> Map<K, V> fromJsonMap(String json, Class<K> keyClass, Class<V> valueClass, String dateFormat, boolean pretty) {
         if (CommonUtils.isNull(json)) {
             return null;
         }
@@ -384,7 +386,7 @@ public class JsonUtils {
             throw new IllegalArgumentException("Invalid date format: " + dateFormat);
         }
         Type type = TypeToken.getParameterized(Map.class, keyClass, valueClass).getType();
-        GsonBuilder builder = gson.setDateFormat(dateFormat);
+        GsonBuilder builder = new GsonBuilder().setDateFormat(dateFormat);
         if (pretty) {
             builder.setPrettyPrinting();
         }
@@ -401,7 +403,7 @@ public class JsonUtils {
         if (CommonUtils.isNull(json)) {
             return null;
         }
-        return gson.setDateFormat(DEFAULT_DATE_FORMAT).create().fromJson(json, String.class);
+        return DEFAULT_GSON.fromJson(json, String.class);
     }
 
     /**
@@ -422,7 +424,7 @@ public class JsonUtils {
         if (!DateTimeUtils.isValidDateFormat(dateFormat)) {
             throw new IllegalArgumentException("Invalid date format: " + dateFormat);
         }
-        return gson.setDateFormat(dateFormat).create().fromJson(json, String.class);
+        return new GsonBuilder().setDateFormat(dateFormat).create().fromJson(json, String.class);
     }
 
     /**
@@ -437,11 +439,8 @@ public class JsonUtils {
         if (CommonUtils.isNull(json)) {
             return null;
         }
-        GsonBuilder builder = gson.setDateFormat(DEFAULT_DATE_FORMAT);
-        if (pretty) {
-            builder.setPrettyPrinting();
-        }
-        return builder.create().fromJson(json, String.class);
+        Gson gson = pretty ? PRETTY_GSON : DEFAULT_GSON;
+        return gson.fromJson(json, String.class);
     }
 
     /**
@@ -464,7 +463,7 @@ public class JsonUtils {
         if (!DateTimeUtils.isValidDateFormat(dateFormat)) {
             throw new IllegalArgumentException("Invalid date format: " + dateFormat);
         }
-        GsonBuilder builder = gson.setDateFormat(dateFormat);
+        GsonBuilder builder = new GsonBuilder().setDateFormat(dateFormat);
         if (pretty) {
             builder.setPrettyPrinting();
         }
@@ -481,7 +480,7 @@ public class JsonUtils {
         if (CommonUtils.isNull(list)) {
             return null;
         }
-        return gson.setDateFormat(DEFAULT_DATE_FORMAT).create().toJson(list);
+        return DEFAULT_GSON.toJson(list);
     }
 
     /**
@@ -502,7 +501,7 @@ public class JsonUtils {
         if (!DateTimeUtils.isValidDateFormat(dateFormat)) {
             throw new IllegalArgumentException("Invalid date format: " + dateFormat);
         }
-        return gson.setDateFormat(dateFormat).create().toJson(list);
+        return new GsonBuilder().setDateFormat(dateFormat).create().toJson(list);
     }
 
     /**
@@ -515,7 +514,7 @@ public class JsonUtils {
         if (CommonUtils.isNull(list)) {
             return null;
         }
-        return gson.setDateFormat(DEFAULT_DATE_FORMAT).setPrettyPrinting().create().toJson(list);
+        return PRETTY_GSON.toJson(list);
     }
 
     /**
@@ -536,7 +535,7 @@ public class JsonUtils {
         if (!DateTimeUtils.isValidDateFormat(dateFormat)) {
             throw new IllegalArgumentException("Invalid date format: " + dateFormat);
         }
-        return gson.setDateFormat(dateFormat).setPrettyPrinting().create().toJson(list);
+        return new GsonBuilder().setDateFormat(dateFormat).setPrettyPrinting().create().toJson(list);
     }
 
     /**
