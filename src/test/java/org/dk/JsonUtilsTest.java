@@ -139,6 +139,16 @@ public class JsonUtilsTest {
     }
 
     @Test
+    void testFromJsonMapIndependentTypes() {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("age", 30);
+        String json = JsonUtils.toJson(map);
+        Map<String, Integer> result = JsonUtils.fromJsonMap(json, String.class, Integer.class);
+        assertNotNull(result);
+        assertEquals(30, result.get("age"));
+    }
+
+    @Test
     void testFromJsonMapDefault() {
         Map<String, String> map = new HashMap<>();
         map.put("k", "v");
@@ -185,6 +195,27 @@ public class JsonUtilsTest {
         Map<String, String> result = JsonUtils.fromJsonMap(json, String.class, String.class, "yyyy-MM-dd", true);
         assertNotNull(result);
         assertEquals("v", result.get("k"));
+    }
+
+    @Test
+    void testThreadSafety() throws InterruptedException {
+        int threads = 10;
+        int iterations = 100;
+        Thread[] threadArr = new Thread[threads];
+        for (int i = 0; i < threads; i++) {
+            threadArr[i] = new Thread(() -> {
+                for (int j = 0; j < iterations; j++) {
+                    String json = JsonUtils.toJson(person);
+                    Person p = JsonUtils.fromJson(json, Person.class);
+                    assertNotNull(p);
+                    assertEquals("Alice", p.getName());
+                }
+            });
+            threadArr[i].start();
+        }
+        for (Thread t : threadArr) {
+            t.join();
+        }
     }
 
     @Test
