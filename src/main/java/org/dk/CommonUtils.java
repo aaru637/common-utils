@@ -251,6 +251,214 @@ public class CommonUtils {
     }
 
     /**
+     * Compares two Booleans for equality.
+     * Both must be non-{@code null}.
+     *
+     * @param b1 the first boolean
+     * @param b2 the second boolean
+     * @return {@code true} if both are non-{@code null} and equal, {@code false} otherwise
+     */
+    public static boolean isBooleansEqual(Boolean b1, Boolean b2) {
+        if (isNull(b1) || isNull(b2)) {
+            return false;
+        }
+        return b1.equals(b2);
+    }
+
+    /**
+     * Checks if two Booleans are not equal.
+     *
+     * @param b1 the first boolean
+     * @param b2 the second boolean
+     * @return {@code true} if Booleans are not equal, {@code false} otherwise
+     */
+    public static boolean isBooleansNotEqual(Boolean b1, Boolean b2) {
+        return !isBooleansEqual(b1, b2);
+    }
+
+    /**
+     * Compares two Longs for equality.
+     * Both must be non-{@code null}.
+     *
+     * @param l1 the first long
+     * @param l2 the second long
+     * @return {@code true} if both are non-{@code null} and equal, {@code false} otherwise
+     */
+    public static boolean isLongsEqual(Long l1, Long l2) {
+        if (isNull(l1) || isNull(l2)) {
+            return false;
+        }
+        return l1.equals(l2);
+    }
+
+    /**
+     * Checks if two Longs are not equal.
+     *
+     * @param l1 the first long
+     * @param l2 the second long
+     * @return {@code true} if Longs are not equal, {@code false} otherwise
+     */
+    public static boolean isLongsNotEqual(Long l1, Long l2) {
+        return !isLongsEqual(l1, l2);
+    }
+
+    /**
+     * Compares two Integers for equality.
+     * Both must be non-{@code null}.
+     *
+     * @param i1 the first integer
+     * @param i2 the second integer
+     * @return {@code true} if both are non-{@code null} and equal, {@code false} otherwise
+     */
+    public static boolean isIntegersEqual(Integer i1, Integer i2) {
+        if (isNull(i1) || isNull(i2)) {
+            return false;
+        }
+        return i1.equals(i2);
+    }
+
+    /**
+     * Checks if two Integers are not equal.
+     *
+     * @param i1 the first integer
+     * @param i2 the second integer
+     * @return {@code true} if Integers are not equal, {@code false} otherwise
+     */
+    public static boolean isIntegersNotEqual(Integer i1, Integer i2) {
+        return !isIntegersEqual(i1, i2);
+    }
+
+    /**
+     * Compares two Doubles for equality.
+     * Both must be non-{@code null}.
+     *
+     * @param d1 the first double
+     * @param d2 the second double
+     * @return {@code true} if both are non-{@code null} and equal, {@code false} otherwise
+     */
+    public static boolean isDoublesEqual(Double d1, Double d2) {
+        if (isNull(d1) || isNull(d2)) {
+            return false;
+        }
+        return d1.equals(d2);
+    }
+
+    /**
+     * Checks if two Doubles are not equal.
+     *
+     * @param d1 the first double
+     * @param d2 the second double
+     * @return {@code true} if Doubles are not equal, {@code false} otherwise
+     */
+    public static boolean isDoublesNotEqual(Double d1, Double d2) {
+        return !isDoublesEqual(d1, d2);
+    }
+
+    /**
+     * Compares two Floats for equality.
+     * Both must be non-{@code null}.
+     *
+     * @param f1 the first float
+     * @param f2 the second float
+     * @return {@code true} if both are non-{@code null} and equal, {@code false} otherwise
+     */
+    public static boolean isFloatsEqual(Float f1, Float f2) {
+        if (isNull(f1) || isNull(f2)) {
+            return false;
+        }
+        return f1.equals(f2);
+    }
+
+    /**
+     * Checks if two Floats are not equal.
+     *
+     * @param f1 the first float
+     * @param f2 the second float
+     * @return {@code true} if Floats are not equal, {@code false} otherwise
+     */
+    public static boolean isFloatsNotEqual(Float f1, Float f2) {
+        return !isFloatsEqual(f1, f2);
+    }
+
+    /**
+     * Compares two Shorts for equality.
+     * Both must be non-{@code null}.
+     *
+     * @param s1 the first short
+     * @param s2 the second short
+     * @return {@code true} if both are non-{@code null} and equal, {@code false} otherwise
+     */
+    public static boolean isShortsEqual(Short s1, Short s2) {
+        if (isNull(s1) || isNull(s2)) {
+            return false;
+        }
+        return s1.equals(s2);
+    }
+
+    /**
+     * Checks if two Shorts are not equal.
+     *
+     * @param s1 the first short
+     * @param s2 the second short
+     * @return {@code true} if Shorts are not equal, {@code false} otherwise
+     */
+    public static boolean isShortsNotEqual(Short s1, Short s2) {
+        return !isShortsEqual(s1, s2);
+    }
+
+    /**
+     * Compares two Bytes for equality.
+     * Both must be non-{@code null}.
+     *
+     * @param b1 the first byte
+     * @param b2 the second byte
+     * @return {@code true} if both are non-{@code null} and equal, {@code false} otherwise
+     */
+    public static boolean isBytesEqual(Byte b1, Byte b2) {
+        if (isNull(b1) || isNull(b2)) {
+            return false;
+        }
+        return b1.equals(b2);
+    }
+
+    /**
+     * Checks if two Bytes are not equal.
+     *
+     * @param b1 the first byte
+     * @param b2 the second byte
+     * @return {@code true} if Bytes are not equal, {@code false} otherwise
+     */
+    public static boolean isBytesNotEqual(Byte b1, Byte b2) {
+        return !isBytesEqual(b1, b2);
+    }
+
+    /**
+     * Compares two Characters for equality.
+     * Both must be non-{@code null}.
+     *
+     * @param c1 the first character
+     * @param c2 the second character
+     * @return {@code true} if both are non-{@code null} and equal, {@code false} otherwise
+     */
+    public static boolean isCharactersEqual(Character c1, Character c2) {
+        if (isNull(c1) || isNull(c2)) {
+            return false;
+        }
+        return c1.equals(c2);
+    }
+
+    /**
+     * Checks if two Characters are not equal.
+     *
+     * @param c1 the first character
+     * @param c2 the second character
+     * @return {@code true} if Characters are not equal, {@code false} otherwise
+     */
+    public static boolean isCharactersNotEqual(Character c1, Character c2) {
+        return !isCharactersEqual(c1, c2);
+    }
+
+    /**
      * Compares two strings for equality, ignoring case and trimming whitespace.
      * Both strings must be non-{@code null}.
      *

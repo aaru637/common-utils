@@ -1,0 +1,17 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Set Thymeleaf to INFO to avoid verbose initialization logs -->
+    <logger name="org.thymeleaf" level="INFO" />
+    
+    <!-- Set Flying Saucer to INFO as well if needed -->
+    <logger name="org.xhtmlrenderer" level="INFO" />
+
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>

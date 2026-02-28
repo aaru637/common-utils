@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.aaru637/common-utils.svg)](https://search.maven.org/artifact/io.github.aaru637/common-utils)
 
-A comprehensive Java utility library providing common helper methods for JSON manipulation, date/time operations, file handling, type conversion, and general utilities.
+A comprehensive Java utility library providing common helper methods for JSON manipulation, date/time operations, file handling, type conversion, PDF generation, and advanced validation annotations.
 
 ## Getting Started
 
@@ -12,13 +12,13 @@ A comprehensive Java utility library providing common helper methods for JSON ma
 <dependency>
     <groupId>io.github.aaru637</groupId>
     <artifactId>common-utils</artifactId>
-    <version>1.0.6</version>
+    <version>2.0.1</version>
 </dependency>
 ```
 
 ### Gradle
 ```groovy
-implementation 'io.github.aaru637:common-utils:1.0.6'
+implementation 'io.github.aaru637:common-utils:2.0.1'
 ```
 
 ## Features
@@ -31,50 +31,68 @@ String json = JsonUtils.toJson(myObject);
 
 // Deserialize JSON to Object
 MyClass obj = JsonUtils.fromJson(json, MyClass.class);
-
-// Deserialize to Map with independent types
-Map<String, Integer> map = JsonUtils.fromJsonMap(json, String.class, Integer.class);
 ```
 
-### 2. DateTimeUtils
-Comprehensive date and time operations.
+### 2. PdfService
+Advanced PDF generation supporting raw bytes, HTML strings, and Thymeleaf templates.
 ```java
-DateTimeUtils utils = new DateTimeUtils();
-String formatted = utils.formatDate("yyyy-MM-dd");
-LocalDateTime nextWeek = utils.getStartOfNextWeek();
+PdfService pdfService = new PdfService();
+PdfRequestDTO request = PdfRequestDTO.builder()
+    .fileName("invoice.pdf")
+    .fileContent("<h1>Hello [(${name})]</h1>")
+    .data(Map.of("name", "John Doe"))
+    .build();
+
+byte[] pdfBytes = pdfService.generatePdf(request);
+pdfService.savePdfToFile(pdfBytes, "output/invoice.pdf");
 ```
 
-### 3. CommonUtils
-Helper methods for null checks, string operations, and random generation.
+### 3. Validation Annotations
+Powerful annotations for data validation and normalization.
+
+#### @EnumValidator
+Validates if a string value matches a constant in a specified Enum.
 ```java
-if (CommonUtils.isNotEmpty(myString)) {
-    String random = CommonUtils.randomString(10);
+public class UserDTO {
+    @EnumValidator(enumClass = UserStatus.class, message = "Invalid status")
+    private String status;
 }
 ```
 
-### 4. FileOperations
-Utilities for file reading, writing, and manipulation.
+#### @StringNormalizer
+Normalizes strings during Jackson deserialization (trim, case conversion, capitalization).
+```java
+public class ProfileDTO {
+    @StringNormalizer(trim = true, capitalize = true)
+    private String firstName;
+    
+    @StringNormalizer(caseConversion = StringCase.UPPER)
+    private String countryCode;
+}
+```
 
-### 5. TypeConverter
-Safe type conversion utilities between various Java types.
+#### @Patchable
+Distinguishes between missing fields and explicitly null fields in PATCH requests.
+```java
+public class UpdateRequest extends FieldPresenceChecker {
+    @Patchable
+    private String email;
+}
+```
 
-## DTOs & Response Formatting
+### 4. DTOs & Response Formatting
+Consistent structure for API responses using generic DTOs.
 
-The library provides a consistent structure for API responses using generic DTOs.
-
-### ApiResponse
+#### ApiResponse
 A generic container that encapsulates the status, data payload, and metadata.
-
 ```java
 ApiResponse response = new ApiResponse();
 response.setStatus(200);
 response.setData(user);
-response.setMetaResponse(new MetaResponse());
 ```
 
-### MetaResponse & MetaInfo
-Used for tracking operation success and accumulating detailed messages or errors.
-
+#### MetaResponse & MetaInfo
+Thread-safe metadata tracking for success/failure status and detailed messages.
 ```java
 MetaResponse meta = new MetaResponse();
 meta.add(new MetaInfo("ERR_001", "Invalid input"), true);
@@ -85,11 +103,7 @@ response.setMetaResponse(meta);
 
 To deploy a new version to Maven Central:
 
-1. Set the following environment variables (or update `settings.xml` directly):
-   - `OSSRH_USERNAME_TOKEN`
-   - `OSSRH_PASSWORD_TOKEN`
-   - `GPG_KEY_NAME`
-   - `GPG_KEY_PASSPHRASE`
+1. Set environment variables for OSSRH and GPG credentials.
 2. Run the deployment command:
    ```bash
    mvn clean deploy -s settings.xml

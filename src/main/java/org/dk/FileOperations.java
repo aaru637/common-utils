@@ -402,6 +402,52 @@ public class FileOperations {
     }
 
     /**
+     * Asynchronously writes a byte array to a file.
+     *
+     * @param filePath file path to write
+     * @param content  byte array content to write
+     * @return a {@code CompletableFuture<File>} representing written file
+     */
+    public static CompletableFuture<File> writeByteToFileAsync(String filePath, byte[] content) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                return writeByteToFile(filePath, content);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    /**
+     * Writes a byte array to a file.
+     *
+     * @param filePath file path to write
+     * @param content  byte array content to write
+     * @return the file written
+     * @throws IOException if unable to write
+     */
+    public static File writeByteToFile(String filePath, byte[] content) throws IOException {
+        if (CommonUtils.isEmpty(filePath)) {
+            throw new IllegalArgumentException("File path cannot be null or empty");
+        }
+        if (content == null) {
+            throw new IllegalArgumentException("Content cannot be null");
+        }
+        File dir = new File(filePath).getParentFile();
+        if (dir != null && !dir.exists() && !dir.mkdirs()) {
+            throw new IOException("Failed to create directory: " + dir.getAbsolutePath());
+        }
+        File file = new File(filePath);
+        if (file.exists() && !file.canWrite()) {
+            throw new IOException("Cannot write to file: " + filePath);
+        }
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            fos.write(content);
+        }
+        return file;
+    }
+
+    /**
      * Asynchronously deletes a file.
      *
      * @param filePath file path to delete
