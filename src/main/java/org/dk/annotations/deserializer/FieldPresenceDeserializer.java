@@ -123,13 +123,14 @@ public class FieldPresenceDeserializer<T extends FieldPresenceChecker>
     private FieldCache createFieldCache(Class<?> targetClass) {
         try {
             Field[] declaredFields = targetClass.getDeclaredFields();
+            boolean isClassPatchable = targetClass.isAnnotationPresent(Patchable.class);
 
             List<Field> patchableFields = Arrays.stream(declaredFields)
-                    .filter(field -> field.isAnnotationPresent(Patchable.class))
+                    .filter(field -> isClassPatchable || field.isAnnotationPresent(Patchable.class))
                     .collect(Collectors.toList());
 
             List<Field> regularFields = Arrays.stream(declaredFields)
-                    .filter(field -> !field.isAnnotationPresent(Patchable.class))
+                    .filter(field -> !isClassPatchable && !field.isAnnotationPresent(Patchable.class))
                     .collect(Collectors.toList());
 
             return new FieldCache(patchableFields, regularFields);

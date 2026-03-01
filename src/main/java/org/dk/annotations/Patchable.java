@@ -36,6 +36,6 @@ import java.lang.annotation.Target;
  * <p>Created at : 2025-08-31</p>
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
+@Target({ElementType.FIELD, ElementType.TYPE})
 public @interface Patchable {
 }
