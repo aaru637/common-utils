@@ -46,11 +46,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * Generates a constructor with one parameter for each field in the class.
  */
 @AllArgsConstructor
-/**
- * Generates a non-argument constructor.
- */
-@NoArgsConstructor
 public class MetaResponse implements Serializable {
+
+    /**
+     * Default constructor for MetaResponse.
+     */
+    public MetaResponse() {}
     @Serial
     private static final long serialVersionUID = 1L;
 

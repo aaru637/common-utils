@@ -7,13 +7,13 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
  * tracking of {@link Patchable @Patchable} fields
  * during JSON deserialization.
  *
- * <h3>Registration:</h3>
+ * <h2>Registration:</h2>
  * <pre>{@code
  * ObjectMapper mapper = new ObjectMapper();
  * mapper.registerModule(new PatchableModule());
  * }</pre>
  *
- * <h3>Spring Boot auto-configuration:</h3>
+ * <h2>Spring Boot auto-configuration:</h2>
  * <pre>{@code
  * @Configuration
  * public class JacksonConfig {
@@ -41,6 +41,9 @@ public class PatchableModule extends SimpleModule {
 
     private static final String MODULE_NAME = "PatchableModule";
 
+    /**
+     * Default constructor for PatchableModule.
+     */
     public PatchableModule() {
         super(MODULE_NAME);
     }

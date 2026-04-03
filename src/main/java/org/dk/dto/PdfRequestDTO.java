@@ -14,9 +14,13 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
 public class PdfRequestDTO {
+
+    /**
+     * Default constructor for PdfRequestDTO.
+     */
+    public PdfRequestDTO() {}
 
     /**
      * The desired name for the generated PDF file.

@@ -41,6 +41,12 @@ import org.dk.exception.InvalidEnumException;
  * <p>Created at : 2025-09-17</p>
  */
 public class EnumValidatorConstraint implements ConstraintValidator<EnumValidator, String> {
+    
+    /**
+     * Default constructor for EnumValidatorConstraint.
+     */
+    public EnumValidatorConstraint() {}
+
     /**
      * The annotation instance containing validation configuration and metadata.
      */

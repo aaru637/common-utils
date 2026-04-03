@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * {@link PatchableAware}. The Jackson deserializer stores
  * the context here, and consumers can retrieve it after deserialization.</p>
  *
- * <h3>Usage (for DTOs that don't implement PatchableAware):</h3>
+ * <h2>Usage (for DTOs that don't implement PatchableAware):</h2>
  * <pre>{@code
  * // After deserialization
  * PatchContext ctx = PatchContextHolder.get(requestObject);

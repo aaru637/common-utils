@@ -30,6 +30,10 @@ public class PdfService {
     private final TemplateEngine templateEngine;
     private final ObjectMapper objectMapper;
 
+    /**
+     * Default constructor for PdfService.
+     * Initializes the template engine and object mapper.
+     */
     public PdfService() {
         this.templateEngine = createTemplateEngine();
         this.objectMapper = new ObjectMapper();
