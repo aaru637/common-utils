@@ -43,11 +43,12 @@ import java.io.Serializable;
  * Generates a constructor with one parameter for each field in the class.
  */
 @AllArgsConstructor
-/**
- * Generates a non-argument constructor.
- */
-@NoArgsConstructor
 public class MetaInfo implements Serializable {
+
+    /**
+     * Default constructor for MetaInfo.
+     */
+    public MetaInfo() {}
     @Serial
     private static final long serialVersionUID = 1L;
 

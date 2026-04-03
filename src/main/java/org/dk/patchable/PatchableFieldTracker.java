@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * overhead.
  * </p>
  *
- * <h3>Usage:</h3>
+ * <h2>Usage:</h2>
  *
  * <pre>{@code
  * // Create a context for an object — all patchable fields start as ABSENT
@@ -44,6 +44,9 @@ public final class PatchableFieldTracker {
      */
     private static final Map<Class<?>, List<PatchableFieldInfo>> FIELD_CACHE = new ConcurrentHashMap<>();
 
+    /**
+     * Patchable Field Tracker
+     */
     private PatchableFieldTracker() {
         // Utility class — no instantiation
     }

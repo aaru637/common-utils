@@ -47,11 +47,12 @@ import java.io.Serializable;
  * Generates a constructor with one parameter for each field in the class.
  */
 @AllArgsConstructor
-/**
- * Generates a non-argument constructor.
- */
-@NoArgsConstructor
 public class ApiResponse implements Serializable {
+    
+    /**
+     * Default constructor for ApiResponse.
+     */
+    public ApiResponse() {}
     @Serial
     private static final long serialVersionUID = 1L;
 

@@ -7,7 +7,7 @@ package org.dk.patchable;
  * will automatically attach the {@code PatchContext} directly to the object. This provides
  * a clean, self-contained API without needing external lookups.</p>
  *
- * <h3>Example:</h3>
+ * <h2>Example:</h2>
  * <pre>{@code
  * @Patchable
  * public class UserUpdateRequest implements PatchableAware {

@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
  * <p>A {@code PatchContext} is created during deserialization (or programmatically)
  * and tracks which fields were present in the incoming request vs. which were absent.</p>
  *
- * <h3>Example usage:</h3>
+ * <h2>Example usage:</h2>
  * <pre>{@code
  * PatchContext ctx = request.getPatchContext();
  *
