@@ -33,6 +33,12 @@ import java.io.IOException;
  */
 public class StringNormalizeDeserializer extends JsonDeserializer<String>
         implements ContextualDeserializer {
+
+    /**
+     * Default constructor for StringNormalizeDeserializer.
+     */
+    public StringNormalizeDeserializer() {}
+
     /**
      * Flag indicating whether to trim whitespace from string values
      */
