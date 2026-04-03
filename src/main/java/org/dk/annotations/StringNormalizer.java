@@ -3,6 +3,7 @@ package org.dk.annotations;
 import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.dk.annotations.deserializer.StringNormalizeDeserializer;
+import org.dk.annotations.deserializer.StringNormalizeValueDeserializer;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -59,6 +60,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 @JacksonAnnotationsInside
 @JsonDeserialize(using = StringNormalizeDeserializer.class)
+@tools.jackson.databind.annotation.JsonDeserialize(using = StringNormalizeValueDeserializer.class)
 public @interface StringNormalizer {
     /**
      * Specifies whether to trim leading and trailing whitespace from the string value.
